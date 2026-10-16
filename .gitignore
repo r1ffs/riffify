@@ -1,0 +1,66 @@
+# --- your personal settings (copy the .example files) ---
+config.toml
+avoid.txt
+
+# --- riffify outputs and working files (generated per video, not part of the project) ---
+*.json
+*.log
+*_log*.txt
+*_err*.txt
+*.gags.txt
+.tts_cache/
+_check/
+
+# video, audio and subtitle files (inputs and outputs)
+*.mp4
+*.mkv
+*.mov
+*.avi
+*.m4v
+*.webm
+*.mpeg
+*.mpg
+*.ts
+*.wmv
+*.flv
+*.mp3
+*.wav
+*.m4a
+*.aac
+*.ac3
+*.flac
+*.ogg
+*.opus
+*.srt
+*.vtt
+*.ass
+
+# images made while testing
+*.png
+*.jpg
+*.jpeg
+
+# per-movie style notes you write for your own runs (examples in styles/ are kept)
+styles/*
+!styles/README.md
+!styles/example_*.txt
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.env
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# keep the Claude Code skill
+!.claude/
+!.claude/skills/
+!.claude/skills/**
