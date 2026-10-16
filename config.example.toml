@@ -1,0 +1,24 @@
+# riffify settings. Copy this file to config.toml (next to riffify.py) and edit it - config.toml is
+# git-ignored, so your settings stay yours. Everything here is optional: delete what you don't need.
+# Command-line flags always win over these. API keys stay in environment variables, not here.
+
+[voices.openai]          # --tts openai. Voices: alloy ash ballad cedar coral echo fable marin nova onyx sage shimmer verse
+OTTO = "ash"
+GEARALD = "echo"
+CHIP = "verse"
+
+[voices.elevenlabs]      # --tts elevenlabs. Voice names as they appear in your ElevenLabs account
+OTTO = "Chris"
+GEARALD = "Brian"
+CHIP = "Callum"
+
+[defaults]               # any option from `python riffify.py --help`, with dashes as underscores
+# quality = "balanced"   # budget | balanced | max
+# tts = "elevenlabs"
+# youtube = true
+# mp3 = true
+# riff_gain = 1.5
+# density = 12
+# visual_delay = 0.3
+# encoder = "auto"
+# style = "@styles/my_movie.txt"

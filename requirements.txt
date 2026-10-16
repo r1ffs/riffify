@@ -1,0 +1,9 @@
+anthropic>=1.13
+openai>=3.0
+faster-whisper>=1.2
+edge-tts>=7.0
+pillow>=10.1
+numpy>=1.26
+
+# Optional - NVIDIA GPU transcription (about 20x faster than CPU). Windows/Linux only:
+#   pip install nvidia-cublas-cu12 "nvidia-cudnn-cu12>=9,<10"

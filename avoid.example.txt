@@ -1,0 +1,9 @@
+# Jokes and themes the hecklers have used too much in past riffs - avoid them (and close variants).
+# Copy this file to avoid.txt (git-ignored) and add your own lines - riffify reads avoid.txt automatically
+# on every run if it sits next to riffify.py (use --avoid other.txt for a different file, --avoid off to skip).
+# One per line. Lines starting with # are ignored.
+#
+# Examples:
+# Jokes about the lighting: dark or dim scenes, the lighting budget, the electric/power bill
+# Jokes about the movie's runtime or "how much longer is this?"
+# The "Chekhov's gun" joke
