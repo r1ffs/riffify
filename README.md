@@ -69,7 +69,7 @@ pay to riff the credits.
 ## Install
 
 ```bash
-git clone https://github.com/<you>/riffify.git
+git clone https://github.com/r1ffs/riffify.git
 cd riffify
 pip install -r requirements.txt
 ```
