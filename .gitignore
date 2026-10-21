@@ -59,6 +59,7 @@ Thumbs.db
 desktop.ini
 .vscode/
 .idea/
+.vs/
 
 # keep the Claude Code skill
 !.claude/

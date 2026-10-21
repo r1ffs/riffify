@@ -98,8 +98,10 @@ RIFFERS = {
                             "accent. Big dynamic range: grand "
                             "swells, dramatic pauses, over-enunciated words, occasional mock-operatic flourishes. "
                             "Clearly having the time of his life.",
-        "persona": "A pompous box-headed robot with a single antenna. Theatrical, vain, bursts into "
-                   "song or Shakespearean declarations, pretends to be cultured.",
+        "persona": "A pompous box-headed robot with a single antenna. Theatrical and vain; takes the movie "
+                   "personally and his pride is easily wounded. Name-drops famous celebrities as if they're "
+                   "close personal friends. His references are well-known pop culture. Sometimes bursts "
+                   "into a famous song hook that fits the moment, sung straight or with the words changed.",
     },
     "CHIP": {
         "voice": "en-US-EricNeural", "rate": "+14%", "pitch": "+28Hz",
@@ -510,13 +512,13 @@ def detect_shots(video: Path, duration: float, threshold: float = SHOT_THRESHOLD
 
 
 def extract_frames(video: Path, picture, tmp: Path):
-    """Every frame at FRAME_FPS, black bars cropped, 400 px wide. Frame n is at n / FRAME_FPS s."""
+    """Every frame at FRAME_FPS, black bars cropped, 450 px wide. Frame n is at n / FRAME_FPS s."""
     frame_dir = tmp / "frames"
     frame_dir.mkdir()
     x, y, w, h = picture
     run(["ffmpeg", "-y", "-i", str(video), "-an", "-vf",
-         f"{square_pixels(video)}crop={w}:{h}:{x}:{y},fps={FRAME_FPS},scale=400:-2",
-         "-q:v", "4", str(frame_dir / "f_%06d.jpg")])
+         f"{square_pixels(video)}crop={w}:{h}:{x}:{y},fps={FRAME_FPS},scale=450:-2",
+         "-q:v", "2", str(frame_dir / "f_%06d.jpg")])
     return sorted(frame_dir.glob("f_*.jpg"))
 
 
@@ -563,7 +565,7 @@ def build_contact_sheets(frames, shots, max_frames: int):
         for j, tile in enumerate(tiles):
             sheet.paste(tile, ((j % 3) * (tw + 4), (j // 3) * (th + 4)))
         buf = io.BytesIO()
-        sheet.save(buf, "JPEG", quality=85)
+        sheet.save(buf, "JPEG", quality=92)
         caption = f"Sheet {i // TILES_PER_SHEET + 1}: shots S{group[0][0]}-S{group[-1][0]}, {group[0][1]:.1f}s-{group[-1][1]:.1f}s"
         sheets.append((caption, buf.getvalue(), group[0][0], group[-1][0]))
     return sheets, len(picks)
@@ -911,8 +913,8 @@ def write_riffs(transcript, shots, sheets, span, title, args, candidates_path: P
     return riffs + extra
 
 
-VISUAL_SHOT_LEAD = 0.5   # a visual riff can't start until this long after its shot appears
-VISUAL_DELAY = 0.3       # ...and starts this much later than written: time for the image to register
+VISUAL_SHOT_LEAD = 0.6   # a visual riff can't start until this long after its shot appears
+VISUAL_DELAY = 0.4       # ...and starts this much later than written: time for the image to register
 
 
 def anchor_riffs(riffs, shots, transcript, duration, visual_delay=VISUAL_DELAY):

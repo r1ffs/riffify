@@ -42,7 +42,9 @@ Ask (one short message, with sensible defaults):
 - A **style note**. Offer to draft one: start from "Riff on the movie itself first: what the
   characters say and do, their choices and motives, the plot's twists and logic, and what's happening
   on screen." then name the film's best comedy targets and anything sensitive to keep off-limits
-  ("riff around those moments, not on them"). Show the full draft, let the user edit it, then save it
+  ("keep riffing through those scenes at the usual pace, but aim the jokes at something else on
+  screen, never at the sensitive subject itself" - just "riff around them" can leave long silent
+  gaps that the fill pass then crams full). Show the full draft, let the user edit it, then save it
   to `styles/<movie>.txt` and pass `--style @styles/<movie>.txt`. See `styles/README.md`.
 
 ## 4. Run it in the background
