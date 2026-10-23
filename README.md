@@ -24,7 +24,7 @@ lines.
 
 - **The riffed movie** (`_riffed.mp4`) — original video + riffs, robot silhouettes along the bottom of the
   picture (they sit on the picture itself in letterboxed/pillarboxed films), every original subtitle track
-  carried over.
+  carried over. `--no-silhouette` (or `silhouette = false` in `config.toml`) leaves the picture clean.
 - **Optional YouTube version** (`--youtube`, `_riffed_youtube.mp4`) — a companion track for posting: a
   movie-theater scene with the robots, a big *MOVIE TIME* clock and a countdown so viewers can sync their
   own copy of the film, plus a tiny, heavily blurred, silent glimpse of the film at the start and every
@@ -168,6 +168,15 @@ The default note (used when you don't pass `--style`) is:
 Built-in rules always apply: fictional groups in the story are fair game, but no jokes at real-world groups
 (race, ethnicity, religion, sexuality, disability), no repeating slurs from the dialogue, PG-13.
 
+### Background notes
+
+For a sequel, a remake or a lore-heavy film, give the writers some background so the robots aren't lost:
+a page or two in a text file, passed with `--background background/movie.md` (repeatable). It's sent as
+reference rather than direction. Keep it factual, point out the comedy targets (recurring characters, silly
+lore, plot holes), and leave the jokes to the writers, since they tend to reuse ready-made ones word for
+word. Don't include the plot of the film being riffed, or the riffs may spoil it. Every writing call gets
+the notes, so shorter is cheaper: about 1,500 words adds well under a dollar to a feature film.
+
 ### The avoid list
 
 `avoid.txt` lists jokes and themes that have been used too much — one per line. Copy `avoid.example.txt` to
@@ -221,6 +230,7 @@ Run `python riffify.py --help` for the full list. The most useful:
 | `--title "..."` | What the video is (helps the writers) |
 | `--quality budget\|balanced\|max` | Model/effort preset (see above) |
 | `--style "..."` / `--style @file.txt` | Style note for this film |
+| `--background FILE` | Reference notes, e.g. a recap of earlier films in a series (repeatable) |
 | `--avoid FILE\|off` | Jokes/themes to avoid (default `avoid.txt`, if present) |
 | `--density 12` | Average seconds between riffs |
 | `--tts openai\|elevenlabs` | Voice engine |

@@ -46,6 +46,14 @@ Ask (one short message, with sensible defaults):
   screen, never at the sensitive subject itself" - just "riff around them" can leave long silent
   gaps that the fill pass then crams full). Show the full draft, let the user edit it, then save it
   to `styles/<movie>.txt` and pass `--style @styles/<movie>.txt`. See `styles/README.md`.
+- **Background notes** - only bring these up when the robots would otherwise be lost: a sequel or
+  later entry in a series, a remake or spin-off that plays off the original, or a film that leans on
+  lore, history or a famous source the audience is expected to know. Offer to write a short recap
+  (one or two pages), save it to `background/<movie>.md`, let the user check it, and pass
+  `--background background/<movie>.md`. Keep it factual and point out the comedy targets (recurring
+  characters, silly lore, plot holes, what fans mock), but write no jokes, because the robots tend to
+  reuse ready-made jokes word for word. Never summarize the plot of the film being riffed: that's
+  spoilers. Every writing call gets the notes, so shorter is cheaper.
 
 ## 4. Run it in the background
 

@@ -735,9 +735,15 @@ def write_riffs(transcript, shots, sheets, span, title, args, candidates_path: P
     else:
         where = f"Video: {title}\nLength: {t_end:.1f} seconds, {len(shots)} shots."
 
+    background = ""
+    if getattr(args, "background_text", ""):
+        background = ("BACKGROUND NOTES (reference from the producer - context, not direction: use what makes "
+                      "a joke land, don't recite it, and never reveal this video's events before they "
+                      f"happen on screen):\n{args.background_text}\n\n")
+
     def build_context(sheet_subset):
         blocks = [{"type": "text", "text":
-                   f"{where}\n\n"
+                   f"{where}\n\n{background}"
                    "Contact sheets follow. Each tile is labeled with its shot number and the exact "
                    "timestamp of that frame."}]
         for caption, jpeg, _, _ in sheet_subset:
@@ -1681,6 +1687,9 @@ def main():
                    help='direction for the writers, or @file to read it from a text file; replaces the '
                         'default style note entirely '
                         '(e.g. "lean into 90s references; the cult in this movie is fair game")')
+    p.add_argument("--background", action="append", default=[], metavar="FILE",
+                   help="reference notes for the writers (e.g. a recap of earlier films in a series), sent as "
+                        "context rather than direction; repeatable. Keep it short: every writing call gets it")
     p.add_argument("--whisper-model", default="large-v3", help="tiny/base/small/medium/large-v3")
     p.add_argument("--avoid", metavar="FILE|off",
                    help="file of jokes/themes to avoid (one per line, # for comments); default: avoid.txt next "
@@ -1713,7 +1722,9 @@ def main():
                    help=f"seconds visual riffs start after the moment they were written for (default {VISUAL_DELAY})")
     p.add_argument("--riff-gain", type=float, default=1.5, help="heckler volume multiplier")
     p.add_argument("--duck", type=float, default=6, help="how hard to duck the movie under riffs (ratio)")
-    p.add_argument("--no-silhouette", action="store_true", help="skip the theater-seat overlay")
+    p.add_argument("--silhouette", action=argparse.BooleanOptionalAction, default=True,
+                   help="robots and theater seats over the main video; --no-silhouette leaves the picture "
+                        "clean (the YouTube version always has them)")
     p.add_argument("--youtube", action="store_true",
                    help="also make a YouTube-ready sync version: theater scene, robots, movie clock, riffs only "
                         "(no movie audio or subtitles), with brief blurred sync glimpses of the film")
@@ -1755,6 +1766,14 @@ def main():
         sys.exit(f"--avoid: {args.avoid} not found")
     if args.style and args.style.startswith("@"):                  # --style @styles/movie.txt
         args.style = Path(args.style[1:]).read_text(encoding="utf-8").strip()
+    notes = []
+    for name in args.background:                                    # --background background/movie.md
+        path = Path(name.removeprefix("@"))
+        if not path.exists():
+            sys.exit(f"--background: {path} not found")
+        notes.append(f"[{path.name}]\n{path.read_text(encoding='utf-8').strip()}")
+        print(f"  background notes from {path.name} (~{len(notes[-1]) // 4:,} tokens per writing call)")
+    args.background_text = "\n\n".join(notes)
     preset = PRESETS[args.quality]
     args.writer_model = args.writer_model or preset["writer"][0]
     args.writer_effort = args.writer_effort or preset["writer"][1]
@@ -1913,7 +1932,7 @@ def main():
             print(f"  note: no riffs from {fmt_ts(a)} to {fmt_ts(b)}")
 
         layers, bob_cmds = None, None
-        if not args.no_silhouette:
+        if args.silhouette:
             layers = draw_layers(width, height, tmp, picture)
             bob_cmds = tmp / "bob_cmds.txt"
             if not write_bob_commands(placed, probe_fps(video), height, bob_cmds):

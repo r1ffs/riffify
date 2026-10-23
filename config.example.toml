@@ -17,6 +17,7 @@ CHIP = "Callum"
 # tts = "elevenlabs"
 # youtube = true
 # mp3 = true
+# silhouette = false     # no robots/seats over the main video (the YouTube version always has them)
 # riff_gain = 1.5
 # density = 12
 # visual_delay = 0.3

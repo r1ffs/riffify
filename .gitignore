@@ -45,6 +45,9 @@ styles/*
 !styles/README.md
 !styles/example_*.txt
 
+# per-movie background notes (--background)
+background/
+
 # --- Python ---
 __pycache__/
 *.py[cod]
